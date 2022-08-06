@@ -1,18 +1,18 @@
 import pydantic
 
 import operator
-import typing
 
-class BaseModel(pydantic.BaseModel): pass
+
+class BaseModel(pydantic.BaseModel):
+    pass
+
 
 class Sets(BaseModel):
     @classmethod
     def __operate__(cls, operator, lhs, rhs):
-        return cls.parse_obj \
-        (
+        return cls.parse_obj(
             {
-                field: operator \
-                (
+                field: operator(
                     getattr(lhs, field),
                     getattr(rhs, field),
                 )
@@ -31,12 +31,8 @@ class Sets(BaseModel):
 
     @classmethod
     def from_model(cls, model):
-        return cls.parse_obj \
-        (
-            {
-                key: {value} if value is not None else set()
-                for key, value in model
-            }
+        return cls.parse_obj(
+            {key: {value} if value is not None else set() for key, value in model}
         )
 
     def keys(self):
