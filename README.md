@@ -10,14 +10,12 @@ class User(pydantic.BaseModel):
     age:   int
     hobby: typing.Optional[str]
 
-sam = User \
-(
+sam = User(
     name = 'Sam',
     age  = 23,
 )
 
-ben = User \
-(
+ben = User(
     name  = 'Ben',
     age   = 47,
     hobby = 'painting',
@@ -25,8 +23,7 @@ ben = User \
 
 class Users(sets.Sets[User]): pass
 
-users = Users \
-(
+users = Users(
     name = {sam.name, ben.name},
     age  = {sam.age,  ben.age},
 )
